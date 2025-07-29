@@ -14,6 +14,7 @@ const brandRouter = require('./routes/brandRoute');
 const subCategoryRouter = require('./routes/subcategoryRoute');
 const orderRouter = require('./routes/orderRoute');
 const connectDB = require('./utils/DB');
+const {limiter} = require('./redis');
 
 
 app.use(cookieParser());
@@ -28,16 +29,16 @@ app.use((err,req,res,next)=>{
 connectDB();
 
 
-app.use('/users', userRoute);
+app.use('/users', limiter, userRoute);
 app.use('/admin', adminRouter);
-app.use('/products', productRouter);
+app.use('/products', limiter, productRouter);
 app.use('/category', categoryRouter);
 app.use('/subcategory', subCategoryRouter);
 app.use('/brand', brandRouter);
-app.use('/wishlist', wishlistRouter);
-app.use('/cart', cartRouter);
-app.use('/review', reviewRouter);
-app.use('/order', orderRouter);
+app.use('/wishlist',limiter, wishlistRouter);
+app.use('/cart',limiter, cartRouter);
+app.use('/review',limiter, reviewRouter);
+app.use('/order',limiter, orderRouter);
 
 
 app.listen(process.env.PORT, (err)=>{
