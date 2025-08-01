@@ -3,8 +3,8 @@ const rateLimit = require('express-rate-limit');
 const RedisStore = require('rate-limit-redis').default;
 
 const client = createClient({
-    username: process.env.REDIS_PASSWORD,
-    password: process.env.REDIS_USER_NAME,
+    username: process.env.REDIS_USER_NAME,
+    password: process.env.REDIS_PASSWORD,
     socket: {
         host: 'redis-14937.c89.us-east-1-3.ec2.redns.redis-cloud.com',
         port: 14937
@@ -32,7 +32,7 @@ const limiter = rateLimit({
   store: new RedisStore({
     sendCommand: (...args) => client.sendCommand(args),
   }),
-  windowMs: 60*1000, // 1 minutes
+  windowMs: 5*60*1000, // 1 minutes
   max: 5,
   keyGenerator: (req, res) =>{
         //  console.log(req.ip + req.path);

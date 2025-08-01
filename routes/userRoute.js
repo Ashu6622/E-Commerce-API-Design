@@ -132,5 +132,16 @@ router.patch('/update', jwtAuth, async (req, res)=>{
 
 })
 
+router.post('/logout', jwtAuth, (req,res)=>{
+
+    try{
+        res.clearCookie('token', {httpOnly:true ,  maxAge:360000});
+        res.status(200).json({ message: 'Logged out successfully'});
+    }
+    catch(error){
+        return res.json({message:error.message});
+    }
+})
+
 module.exports = router
 

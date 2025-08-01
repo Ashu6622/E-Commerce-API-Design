@@ -62,6 +62,10 @@ router.post('/addreview' ,jwtAuth, async (req, res)=>{
 
         const filteredProduct = await Product.findById(data.product_id);
 
+        if(!filteredProduct){
+            return res.status(404).json({message:"Product Not Found"});
+        }
+
         // also update the rating of the corresponding categories, to sort then according to the rating
         const category = await Category.findById(filteredProduct.category);
         const subcategory = await subCategory.findById(filteredProduct.subcategory);
@@ -177,6 +181,10 @@ router.delete('/deletereview', jwtAuth, async(req, res)=>{
         
         const {product_id, text_id} = req.body;
         const findProduct = await Reviews.findOne({product_id});
+
+        if(!findProduct){
+            return res.status(404).json({message:"Product Not Found"});
+        }
        
         // user can only delete your own review
 

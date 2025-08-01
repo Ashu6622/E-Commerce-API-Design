@@ -15,10 +15,13 @@ const subCategoryRouter = require('./routes/subcategoryRoute');
 const orderRouter = require('./routes/orderRoute');
 const connectDB = require('./utils/DB');
 const {limiter} = require('./redis');
-
+const logs = require('./logger');
 
 app.use(cookieParser());
 app.use(helmet());
+app.use(logs());
+
+console.log(logs())
 
 app.use(express.json());
 
