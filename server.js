@@ -19,7 +19,7 @@ const logs = require('./logger');
 
 app.use(cookieParser());
 app.use(helmet());
-app.use(logs());
+// app.use(logs());
 
 console.log(logs())
 
